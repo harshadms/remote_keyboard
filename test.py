@@ -23,9 +23,17 @@ def index():
     
     return render_template('index.html')
 
+@app.route('/media', methods=['GET'])
+def media():
+    return render_template('media.html')
+
+@app.route('/test_keyboard', methods=['GET'])
+def test_keyboard():
+    return render_template('test_keyboard.html')
+
 #background process happening without any refreshing
-@app.route('/background_process_test/<key>', methods=['GET'])
-def background_process_test(key):
+@app.route('/general_control/<key>', methods=['GET'])
+def genera_control(key):
     if 'rx_string' not in session:
         session['rx_string'] = ''
         
@@ -33,30 +41,55 @@ def background_process_test(key):
         session['upper'] = False
         
     if key == 'space':
-        keyboard.press(Key.space)
-        key = " "
+        key = Key.space
         
     elif key == "shift":
         session['upper'] = not session['upper']
         key = ''
+
     elif key == "bck_space":
-        keyboard.press(Key.backspace)
+        #keyboard.press(Key.backspace)
         session['rx_string'] = session['rx_string'][:-1]
-        return ("nothing")
+        key = Key.backspace
     
     elif key == "enter":
-        keyboard.press(Key.enter)
         print (session['rx_string'])
         session['rx_string'] = ""
-        return ("nothing")
+        key = Key.enter
+
+    elif key == "esc":
+        key = Key.esc
+
     else:
         if session['upper']:
             key = key.upper()
             session['upper'] = False
-            
-        keyboard.press(key)
-        
+    
+    keyboard.press(key)
     session['rx_string'] = session['rx_string'] + key
     return ("nothing")
 
-app.run(host="192.168.178.26", debug=True, ssl_context='adhoc')
+#background process happening without any refreshing
+@app.route('/media_control/<key>', methods=['GET'])
+def media_control(key):
+    print (key)
+    #session['rx_string'] = session['rx_string'] + key
+    return ("nothing")
+
+#background process happening without any refreshing
+@app.route('/test_keyboard_ctrl/<key>', methods=['GET'])
+def test_keyboard_ctrl(key):
+    print (key)
+    if 'rx_string' not in session:
+        session['rx_string'] = ''
+
+    if key == "Enter":
+        print (session['rx_string'])
+        session['rx_string'] = ""
+    else:
+        session['rx_string'] = session['rx_string'] + key
+
+    return ("nothing")
+
+
+app.run(debug=True, ssl_context='adhoc')

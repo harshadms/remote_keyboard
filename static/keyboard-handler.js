@@ -5,7 +5,8 @@ var uppercase = document.getElementsByClassName('uppercase-row');
 var event = new Event('change');
 
 function typeVirtualKeyboardKey(key) {
-
+	console.log(key);
+	var key_val;
 	if (textbox != null && key != 'Caps' && key != 'Shift') {
 		if (key == 'Backspace') {
 			textbox.value = textbox.value.substring(0, textbox.value.length - 1);
@@ -26,8 +27,21 @@ function typeVirtualKeyboardKey(key) {
 				textbox.value += key;
 			}
 		}
+
+		key_val = key;
+
+		const request = new XMLHttpRequest();
+		
+
+		// $.getJSON('/test_keyboard_ctrl/' + key_val);
 	}
 
+	var requestURL = "/test_keyboard_ctrl/" + key;
+	console.log(requestURL);
+	const xhr = new XMLHttpRequest();
+	xhr.open("GET", requestURL);
+	xhr.send();
+		
 	if (key == 'Caps') {
 			isCaps = !isCaps;
 	}

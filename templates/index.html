@@ -7,7 +7,7 @@
 $(function() {
     // Define a function to handle key clicks
     function handleKeyClick(key) {
-        $.getJSON('/background_process_test/' + key, function(data) {
+        $.getJSON('/general_control/' + key, function(data) {
             // Handle the response data here
             console.log(data);
         });
