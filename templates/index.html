@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FlaskBlog</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='keyboard.css') }}">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+</head>
+<body>
+    <script type=text/javascript>
+            $(function() {
+            $('a#test').on('click', function(e) {
+                e.preventDefault()
+                $.getJSON('/background_process_test',
+                    function(data) {
+                //do nothing
+                });
+                return false;
+            });
+            });
+    </script>
+
+
+    //button
+    <div class='container'>
+        <h3>Test</h3>
+            <form>
+                <a href=# id=test><button class='btn btn-default'>Test</button></a>
+            </form>
+
+    </div>
+
+    <h1>Welcome to FlaskBlog</h1>
+    <div class="virtual-keyboard"></div>
+    <script type="text/javascript" src="./static/keyboard-handler.js"></script>
+    <script type="text/javascript" src="./static/keyboard-initializer.js"></script>
+</body>
+</html>
