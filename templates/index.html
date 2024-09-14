@@ -1,39 +1,132 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>FlaskBlog</title>
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='keyboard.css') }}">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<title>Emulated Keyboard with AJAX</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+$(function() {
+    // Define a function to handle key clicks
+    function handleKeyClick(key) {
+        $.getJSON('/background_process_test/' + key, function(data) {
+            // Handle the response data here
+            console.log(data);
+        });
+    }
 
+    // // Create the keyboard buttons
+    // var keyboardHTML = '';
+    // for (var i = 65; i <= 120; i++) {
+    //     var key = String.fromCharCode(i);
+    //     keyboardHTML += '<button class="key" data-key="' + key + '">' + key + '</button>';
+    // }
+
+    // // Append the keyboard HTML to the document
+    // $('body').append(keyboardHTML);
+
+    // Attach click event handlers to the buttons
+    $('.key').on('click', function() {
+        var key = $(this).data('key');
+        handleKeyClick(key);
+    });
+});
+</script>
+<style>
+
+:root {
+  --key_size: 70px;
+}
+
+.keyboard {
+    display: grid;
+    grid-template-columns: repeat(13, var(--key_size));
+    grid-gap: 5px;
+    width: 100%;
+    height: 0vh; /* Adjust height as needed */
+    justify-content: center;
+    align-items: center;
+}
+
+.key {
+    width: 100%;
+    height: var(--key_size);
+    text-align: center;
+    font-size: 20px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+</style>
 </head>
 <body>
-    <script type=text/javascript>
-            $(function() {
-            $('a#test').on('click', function(e) {
-                e.preventDefault()
-                $.getJSON('/background_process_test',
-                    function(data) {
-                //do nothing
-                });
-                return false;
-            });
-            });
-    </script>
+<div class="keyboard">
+    
+    <button data-key = "~" class="key">~</button>
+    <button data-key = "!" class="key">!</button>
+    <button data-key = "@" class="key">@</button>
+    <button data-key = "#" class="key">#</button>
+    <button data-key = "$" class="key">$</button>
+    <button data-key = "%" class="key">%</button>
+    <button data-key = "^" class="key">^</button>
+    <button data-key = "&" class="key">&</button>
+    <button data-key = "*" class="key">*</button>
+    <button data-key = "(" class="key">(</button>
+    <button data-key = ")" class="key">)</button>
+    <button data-key = "_" class="key">_</button>
+    <button data-key = "+" class="key">+</button>
 
+    <button data-key="`" class="key">`</button>
+    <button data-key="1" class="key">1</button>
+    <button data-key="2" class="key">2</button>
+    <button data-key="3" class="key">3</button>
+    <button data-key="4" class="key">4</button>
+    <button data-key="5" class="key">5</button>
+    <button data-key="6" class="key">6</button>
+    <button data-key="7" class="key">7</button>
+    <button data-key="8" class="key">8</button>
+    <button data-key="9" class="key">9</button>
+    <button data-key="0" class="key">0</button>
+    <button data-key="-" class="key">-</button>
+    <button data-key="=" class="key">=</button>
 
-    //button
-    <div class='container'>
-        <h3>Test</h3>
-            <form>
-                <a href=# id=test><button class='btn btn-default'>Test</button></a>
-            </form>
+    <button data-key="q" class="key">q</button>
+    <button data-key="w" class="key">w</button>
+    <button data-key="e" class="key">e</button>
+    <button data-key="r" class="key">r</button>
+    <button data-key="t" class="key">t</button>
+    <button data-key="y" class="key">y</button>
+    <button data-key="u" class="key">u</button>
+    <button data-key="i" class="key">i</button>
+    <button data-key="o" class="key">o</button>
+    <button data-key="p" class="key">p</button>
+    <button style="grid-column: 11 / span 3" data-key="bck_space" class="key">BckSpace</button>
 
-    </div>
+    <!-- style="grid-column-start: 13 ;grid-row: 4 / span 2; height: 100%" -->
+    <button data-key="a" class="key">a</button>
+    <button data-key="s" class="key">s</button>
+    <button data-key="d" class="key">d</button>
+    <button data-key="f" class="key">f</button>
+    <button data-key="g" class="key">g</button>
+    <button data-key="h" class="key">h</button>
+    <button data-key="j" class="key">j</button>
+    <button data-key="k" class="key">k</button>
+    <button data-key="l" class="key">l</button>
+    <button data-key=";" class="key">;</button>
+    <button data-key="''" class="key">'</button>
+    <button style="grid-column: 12 / span 2" data-key="shift" class="key">Shift</button>
 
-    <h1>Welcome to FlaskBlog</h1>
-    <div class="virtual-keyboard"></div>
-    <script type="text/javascript" src="./static/keyboard-handler.js"></script>
-    <script type="text/javascript" src="./static/keyboard-initializer.js"></script>
+    <button data-key="z" class="key">z</button>
+    <button data-key="x" class="key">x</button>
+    <button data-key="c" class="key">c</button>
+    <button data-key="v" class="key">v</button>
+    <button data-key="b" class="key">b</button>
+    <button data-key="n" class="key">n</button>
+    <button data-key="m" class="key">m</button>
+    <button data-key="," class="key">,</button>
+    <button data-key="." class="key">.</button>
+    <button data-key="/" class="key">/</button>
+    <button style="grid-column: 11 / span 3" data-key="enter" class="key">Enter</button>
+
+    <button style="grid-column: span 13 / 14 " data-key="space" class="key">Space</button>
+</div>
+
 </body>
 </html>
